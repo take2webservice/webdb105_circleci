@@ -5,12 +5,12 @@ jobs:
     docker:
       - image: take2webservice/wdp105:test
         auth:
-          username: username
+          username: take2webservice
           password: $DOCKERHUB_PASSWORD
       - image: take2webservice/wdp105:dynamodb
         name: dynamodb
         auth:
-          username: username
+          username: take2webservice
           password: $DOCKERHUB_PASSWORD
     working_directory: /code
     environment:
