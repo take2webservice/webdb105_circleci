@@ -1,0 +1,29 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: take2webservice/wdp105:test
+        auth:
+          username: username
+          password: $DOCKERHUB_PASSWORD
+      - image: take2webservice/wdp105:dynamodb
+        name: dynamodb
+        auth:
+          username: username
+          password: $DOCKERHUB_PASSWORD
+    working_directory: /code
+    environment:
+      AWS_DEFAULT_REGION: ap-southeast-1
+      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+      DYNAMODB_ENDPOINT_URL: http://dynamodb:8000
+    steps:
+      - checkout
+      - run: test.py
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
